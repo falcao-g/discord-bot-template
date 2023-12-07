@@ -1,11 +1,11 @@
-<h1 align="center"> Bot template 🪙 </h1>
+# Bot template
 
 <p align="center">
     <a title="Version discord.js" href="https://www.npmjs.com/package/discord.js">
         <img src="https://img.shields.io/badge/discord.js-v14.9.0-blue.svg?logo=npm" alt="Version discord.js">
     </a>
     <a title="Stars" href="https://github.com/falcao-g/discord-bot-template">
-        <img src="https://img.shields.io/github/stars/falcao-g/falbot" alt="Stars">
+        <img src="https://img.shields.io/github/stars/falcao-g/discord-bot-template" alt="Stars">
     </a>
 </p>
 
