@@ -1,5 +1,3 @@
-const { resolveCooldown, msToTime, setCooldown, changeDB, readFile } = require('../utils/functions.js');
-
 module.exports = {
 	name: 'interactionCreate',
 	execute: async (interaction, instance, client) => {
@@ -11,54 +9,12 @@ module.exports = {
 			return;
 		}
 
-		if (instance._banned.includes(interaction.user.id)) {
-			interaction.reply({
-				content: instance.getMessage(interaction, 'YOU_ARE_BANNED'),
-				ephemeral: true,
-			});
-			return;
-		}
-
-		if (interaction.guild != undefined) {
-			var disabledChannels = instance._disabledChannels.get(interaction.guild.id);
-			var disabledCommands = instance._disabledCommands.get(interaction.guild.id);
-		}
-
-		if (disabledChannels != undefined ? disabledChannels.includes(interaction.channel.id) : false) {
-			interaction.reply({
-				content: instance.getMessage(interaction, 'THIS_CHANNEL_IS_DISABLED'),
-				ephemeral: true,
-			});
-			return;
-		}
-
-		if (
-			disabledCommands != undefined
-				? disabledCommands.includes(interaction.commandName ?? interaction.customId.split(' ')[0])
-				: false
-		) {
-			interaction.reply({
-				content: instance.getMessage(interaction, 'THIS_COMMAND_IS_DISABLED'),
-				ephemeral: true,
-			});
-			return;
-		}
-
 		if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
+			// this handles slash commands and context menus
 			const command = client.commands.get(interaction.commandName);
 
 			if (command.cooldown) {
-				cooldown = await resolveCooldown(interaction.user.id, interaction.commandName);
-				if (cooldown > 0) {
-					await interaction.reply({
-						content: instance.getMessage(interaction, 'COOLDOWN', {
-							COOLDOWN: msToTime(cooldown),
-						}),
-						ephemeral: true,
-					});
-					return;
-				}
-				await setCooldown(interaction.user.id, interaction.commandName, command.cooldown);
+				// here we check if the user is on cooldown
 			}
 
 			if (command.developer && !instance.config.devs.includes(interaction.user.id)) {
@@ -67,10 +23,6 @@ module.exports = {
 					ephemeral: true,
 				});
 			}
-
-			var stats = await readFile(interaction.user.id, 'stats');
-			stats.set('commands', stats.get('commands') + 1);
-			await changeDB(interaction.user.id, 'stats', stats, true);
 
 			command.execute({
 				interaction,
@@ -82,11 +34,12 @@ module.exports = {
 				channel: interaction.channel,
 			});
 		} else if (interaction.isAutocomplete()) {
+			// this handles autocompletes for slash commands
 			const command = client.commands.get(interaction.commandName);
 			command.autocomplete({ client, interaction, instance });
 		} else if (interaction.isButton()) {
-			// all button interactions are like the following: <command> <subcommand> <args>
-			// but subcommand and args are optional
+			// i recommend that you make your buttons custom id's like this: <commandName> <subcommand> <args>
+			// so you can easily create a button that interacts with a specific command and subcommand with args
 			const commandName = interaction.customId.split(' ')[0];
 			const command = client.commands.get(commandName);
 
@@ -99,24 +52,8 @@ module.exports = {
 			}
 
 			if (command.cooldown) {
-				cooldown = await resolveCooldown(interaction.user.id, interaction.customId);
-				if (cooldown > 0) {
-					await interaction.reply({
-						content: instance.getMessage(interaction, 'COOLDOWN', {
-							COOLDOWN: msToTime(cooldown),
-						}),
-						ephemeral: true,
-					});
-					return;
-				}
-				await setCooldown(interaction.user.id, interaction.customId, command.cooldown);
+				// here we check if the user is on cooldown
 			}
-
-			if (commandName == 'help') interaction.values = [null];
-
-			var stats = await readFile(interaction.user.id, 'stats');
-			stats.set('commands', stats.get('commands') + 1);
-			await changeDB(interaction.user.id, 'stats', stats, true);
 
 			await command.execute({
 				interaction,
@@ -130,11 +67,8 @@ module.exports = {
 				args: interaction.customId.split(' ').slice(2),
 			});
 		} else if (interaction.isStringSelectMenu()) {
+			// and this is for select menus
 			const command = client.commands.get(interaction.customId.split(' ')[0]);
-
-			var stats = await readFile(interaction.user.id, 'stats');
-			stats.set('commands', stats.get('commands') + 1);
-			await changeDB(interaction.user.id, 'stats', stats, true);
 
 			await command.execute({
 				guild: interaction.guild,
