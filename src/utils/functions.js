@@ -70,7 +70,7 @@ function format(falcoins) {
  *
  * @param {integer} low
  * @param {integer} high
- * @description Generates a random integer between low and high
+ * @description Generates a random integer between low and high, both included
  * @example randint(1, 10) // 5
  * @returns {integer}
  */

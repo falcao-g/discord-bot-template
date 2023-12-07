@@ -4,6 +4,8 @@ const { promisify } = require('util');
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 
+// this is the file loader, it will load all the files from the specified folder
+// it also handles subfolders
 async function loadFiles(dirName) {
 	const basePath = `${process.cwd().replace(/\\/g, '/')}/src/${dirName}`;
 

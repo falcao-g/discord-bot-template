@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+// here we load all the commands
+// commands marked with the developer flag will only be loaded in the test guilds
 async function loadCommands(instance, client) {
 	const { loadFiles } = require('../utils/fileLoader');
 

@@ -1,3 +1,4 @@
+// this is the event handler, it will load all the events from the events folder
 async function loadEvents(instance, client) {
 	const { loadFiles } = require('../utils/fileLoader');
 

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// this is a simple database handler that connects to mongodb using mongoose
+// and also handles some errors, you can use this or your own handler
 class databaseHandler {
 	async connect() {
 		try {
