@@ -9,7 +9,7 @@
     </a>
 </p>
 
-This is a unopinionated, lightweight and easy to use bot template for discord bots.
+This is a unopinionated, lightweight, community driven and easy to use bot template for discord bots.
 
 It is designed to be a good starting point for anyone who wants to create a discord bot with discord.js, but also have helpful features.
 
@@ -22,7 +22,6 @@ If you want to learn more about discord.js, you can check the [documentation](ht
 - ⚙️ Easy to use command and events handler
 - 🎲 Helpful functions and utilities
 - 🗃️ MongoDB integration
-
 
 ## ⚡ How to run
 
@@ -57,7 +56,6 @@ In addition, you will also need to remove the `.example` from the `.env.example`
 If everything was done correctly, you just need to open a terminal on the folder and run `npm start` and the bot should be up and running!
 
 I put a lot of comments and insights on the code, hope this is helpful por people that want to learn how to buil bots!
-
 
 ## ❓ Want to contribute?
 
