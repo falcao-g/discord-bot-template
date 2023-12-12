@@ -1,31 +1,16 @@
 {
-	"name": "falbot",
-	"version": "2.9.2",
-	"description": "https://falbot.netlify.app/",
+	"name": "bot-template",
+	"version": "1.0.0",
+	"description": "A simple, fast and powerful discord bot template.",
 	"main": "./src/index.js",
 	"scripts": {
-		"start": "node ./src/index",
-		"prepare": "husky install"
-	},
-	"lint-staged": {
-		"src/**/*.js": [
-			"prettier --write",
-			"eslint --fix"
-		]
+		"start": "node ."
 	},
 	"author": "Falcão",
 	"license": "GNU 3.0",
 	"dependencies": {
 		"discord.js": "^14.9.0",
 		"dotenv": "^16.0.1",
-		"mathjs": "^10.6.0",
 		"mongoose": "^6.8.0"
-	},
-	"devDependencies": {
-		"eslint": "^8.45.0",
-		"eslint-config-prettier": "^8.8.0",
-		"eslint-plugin-prettier": "^5.0.0",
-		"husky": "^8.0.3",
-		"prettier": "^3.0.0"
 	}
 }
